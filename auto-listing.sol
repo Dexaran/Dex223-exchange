@@ -16,15 +16,14 @@ contract Autolisting
     {
         // Just some logic of adding addresses in batches.
         uint256 _position = pairs[num_batches].length;
-        uint256 _step     = 0;
 
         for (uint i = _pairs.length; i > 0; i--)
         {
-            pairs[ num_batches + _step ].push( _pairs[i] );
+            pairs[num_batches].push( _pairs[i] );
             _position++;
             if (_position == batch_size)
             {
-                _step++;
+                num_batches++;
                 _position = 0;
             }
         }
