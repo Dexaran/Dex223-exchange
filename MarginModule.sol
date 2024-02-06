@@ -58,6 +58,9 @@ abstract contract Dex223MarginModule {
                                                      // Acts similar to `gasPrice` for transactions, i.e. the higher the reward
                                                      // the higher the chance that someone will call the liquidation function on time.
 
+                        address _mark_price,  // The source of price that will be used for liquidation calculations.
+                                              // It can be an oracle or a market price at the moment of position execution.
+
                         bool    _antiflash_delay // If `true` then the liquidation function will not immediately liquidate the position,
                                                  // but instead it will "freeze" it for few blocks.
                                                  // After select number of blocks passes the liquidation function can be called on the frozen order
