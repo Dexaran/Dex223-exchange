@@ -6,6 +6,8 @@ pragma solidity >=0.8.2;
 
 abstract contract Dex223MarginModule {
 
+    event OrderPlaced(uint256 _orderId, address _asset, uint256 _deadline, uint256 _interest, uint256 _collateral, address[] _pairs, address[] _collateral_assets, address[] _liquidators, uint256 _liq_reward, address _mark_price, bool _antiflashloan);
+
 /*
     modifier onlyLender
     {
@@ -18,6 +20,7 @@ abstract contract Dex223MarginModule {
     }
 */
     function placeOrder(address _asset,    // Asset that was provided for borrowing.
+                                           // If `_asset` is `address(0)` then the asset is native currency (ETH on Ethereum).
 
                         uint256 _deadline, // Expiration date of the lending order in UNIX timestamp. 
                                            // Position can be forcefully closed after this date.
@@ -81,6 +84,9 @@ abstract contract Dex223MarginModule {
 /*
 contract TestMarginModule
 {
+    
+    event OrderPlaced(uint256 _orderId, address _asset, uint256 _deadline, uint256 _interest, uint256 _collateral, address[] _pairs, address[] _collateral_assets, address[] _liquidators, uint256 _liq_reward, address _mark_price, bool _antiflashloan);
+
     function placeOrder(address _asset,
                         uint256 _deadline,
                         uint256 _interest_rate,
@@ -90,6 +96,8 @@ contract TestMarginModule
                         uint256 _liquidation_reward
                         ) public  returns (uint256 orderId)
                         {
+                            address[] memory _empty;
+                            emit OrderPlaced(1, address(this), 12345, 123, 1234, _empty, _empty, _empty, 54321, address(this), true);
                             return 123;
                         }
 }
